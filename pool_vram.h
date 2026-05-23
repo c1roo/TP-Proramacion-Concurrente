@@ -1,6 +1,0 @@
-#ifndef POOL_VRAM_H_INCLUDED
-#define POOL_VRAM_H_INCLUDED
-
-
-
-#endif // POOL_VRAM_H_INCLUDED
