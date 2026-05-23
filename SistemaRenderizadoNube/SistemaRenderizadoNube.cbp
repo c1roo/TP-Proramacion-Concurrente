@@ -32,7 +32,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="consumidor.h" />
+		<Unit filename="global.h" />
+		<Unit filename="job.h" />
+		<Unit filename="log.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="pool_vram.h" />
+		<Unit filename="productor.h" />
+		<Unit filename="queue.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
