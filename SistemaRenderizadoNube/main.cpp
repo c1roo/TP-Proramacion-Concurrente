@@ -1,12 +1,10 @@
 #include <iostream>
+#include "productor.h"
 
 using namespace std;
 
 int main()
 {
-    //hola Elian///////////////////
-    cout << "Hello world!" << endl;
-    cout << "HOLAAAAAAAAAAAAAAAAA"<< endl;
-    cout << "Agutin"<< endl;
+    productor(10);
     return 0;
 }
