@@ -12,6 +12,6 @@ void productor(int cantidadJobs)
         nuevoJob.id = i;
         nuevoJob.prioridad = rand() % 2;
 
-        cout << "Job creado: " << nuevoJob.id<< "Prioridad: "<<nuevoJob.prioridad <<endl;
+        cout << "Job creado: " << nuevoJob.id<< " Prioridad: "<<nuevoJob.prioridad <<endl;
     }
 }
