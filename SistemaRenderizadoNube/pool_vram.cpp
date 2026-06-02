@@ -3,31 +3,40 @@
 #include <thread>
 #include <chrono>
 
-void asignarAVRAM(PoolVRAM& pool, Job& job) {
+void init(PoolVRAM& pool, int n) {
+    pool.contador = n;
+}
+
+void wait(PoolVRAM& pool) {
     std::unique_lock<std::mutex> lock(pool.mtx);
-
-    while (pool.slots_ocupados >= pool.MAX_SLOTS) {
-        pool.cv_disponible.wait(lock);
+    while (pool.contador == 0) {
+        pool.cv.wait(lock);
     }
+    pool.contador--;
+}
 
-    pool.slots_ocupados++;
-    lock.unlock(); 
+void signal(PoolVRAM& pool) {
+    std::unique_lock<std::mutex> lock(pool.mtx);
+    pool.contador++;
+    pool.cv.notify_one();
+}
+
+void asignarAVRAM(PoolVRAM& pool, Job& job) {
+    wait(pool);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(450));
 
-    // falta del log algo como registrarEvento(job, "ASIGNADO_VRAM");
+// falta del log algo como registrarEvento(job, "ASIGNADO");
+
 }
 
 void liberarDeVRAM(PoolVRAM& pool, Job& job) {
     std::this_thread::sleep_for(std::chrono::milliseconds(600));
 
-    std::unique_lock<std::mutex> lock(pool.mtx);
-    pool.slots_ocupados--;
-    lock.unlock(); 
+    signal(pool);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
-    // falta del log algo como registrarEvento(job, "FINALIZADFO");
+// falta del log algo como registrarEvento(job, "FINALIZADFO");
 
-    pool.cv_disponible.notify_one();
 }
