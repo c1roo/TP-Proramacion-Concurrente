@@ -1,5 +1,6 @@
 #ifndef MESSAGE_QUEUE_H_INCLUDED
 #define MESSAGE_QUEUE_H_INCLUDED  
+using namespace std;
 
 #include <iostream>
 #include <mutex>
@@ -10,8 +11,8 @@
 #include "job.h"
 
 struct MessageQueue{
-    std::mutex mtx; 
-    std::priority_queue<Job, std::vector<Job>, bool(*)(const Job&, const Job&)> jobQueue{compararJobs};
+    mutex mtx; 
+    spriority_queue<Job, std::vector<Job>, bool(*)(const Job&, const Job&)> jobQueue{compararJobs};
 };
 
 bool compararJobs(const Job& job1, const Job& job2);
