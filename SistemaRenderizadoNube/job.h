@@ -10,11 +10,5 @@ struct Job
     chrono::high_resolution_clock::time_point creacion;
     
 };
-<<<<<<< HEAD
-=======
 
-  //-agregar el tiempo en el que se crea como atributo de nombre "creacion"
-
-
->>>>>>> origin/Rama_TP_Concurrente_Ricarte_2026
 #endif // JOB_H_INCLUDED
