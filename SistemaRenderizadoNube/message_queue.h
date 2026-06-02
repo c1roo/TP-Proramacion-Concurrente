@@ -1,5 +1,7 @@
 #ifndef MESSAGE_QUEUE_H_INCLUDED
 #define MESSAGE_QUEUE_H_INCLUDED  
+#include <mutex>
+#include <queue>
 using namespace std;
 
 #include <iostream>
@@ -12,7 +14,7 @@ using namespace std;
 
 struct MessageQueue{
     mutex mtx; 
-    spriority_queue<Job, std::vector<Job>, bool(*)(const Job&, const Job&)> jobQueue{compararJobs};
+    spriority_queue<Job, vector<Job>, bool(*)(const Job&, const Job&)> jobQueue{compararJobs};
 };
 
 bool compararJobs(const Job& job1, const Job& job2);
