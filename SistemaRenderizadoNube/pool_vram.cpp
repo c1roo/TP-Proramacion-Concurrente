@@ -4,9 +4,6 @@
 #include <chrono>
 
 void asignarAVRAM(PoolVRAM& pool, Job& job) {
-    static std::mutex mtx_entrada_secuencial;
-    std::unique_lock<std::mutex> lock_entrada(mtx_entrada_secuencial);
-
     std::unique_lock<std::mutex> lock(pool.mtx);
 
     while (pool.slots_ocupados >= pool.MAX_SLOTS) {
@@ -14,26 +11,23 @@ void asignarAVRAM(PoolVRAM& pool, Job& job) {
     }
 
     pool.slots_ocupados++;
-    
+    lock.unlock(); 
+
     std::this_thread::sleep_for(std::chrono::milliseconds(450));
 
-    // llamada al log asignado de vram
-    registrarEvento(job, "ASIGNADO_VRAM");
+    // falta del log algo como registrarEvento(job, "ASIGNADO_VRAM");
 }
 
 void liberarDeVRAM(PoolVRAM& pool, Job& job) {
-    static std::mutex mtx_salida_secuencial;
-    std::unique_lock<std::mutex> lock_salida(mtx_salida_secuencial);
-
     std::this_thread::sleep_for(std::chrono::milliseconds(600));
 
     std::unique_lock<std::mutex> lock(pool.mtx);
-
     pool.slots_ocupados--;
+    lock.unlock(); 
 
     std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
-    // llamada al log finalizado
-    registrarEvento(job, "FINALIZADO");
+    // falta del log algo como registrarEvento(job, "FINALIZADFO");
 
     pool.cv_disponible.notify_one();
+}
