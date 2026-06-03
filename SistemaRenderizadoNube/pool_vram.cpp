@@ -26,7 +26,7 @@ void asignarAVRAM(PoolVRAM& pool, Job& job) {
 
     std::this_thread::sleep_for(std::chrono::milliseconds(450));
 
-// falta del log algo como registrarEvento(job, "ASIGNADO");
+    registrarevento(job.id, job.prioridad, "ASIGNADO_A_VRAM");
 
 }
 
@@ -37,6 +37,6 @@ void liberarDeVRAM(PoolVRAM& pool, Job& job) {
 
     std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
-// falta del log algo como registrarEvento(job, "FINALIZADFO");
+    registrarevento(job.id, job.prioridad, "FINALIZADO");
 
 }

@@ -1,6 +1,7 @@
 #include "productor.h"
 #include<iostream>
 #include "job.h"
+#include "log.h"
 using namespace std;
 
 void productor(int cantidadJobs)
@@ -14,4 +15,6 @@ void productor(int cantidadJobs)
 
         cout << "Job creado: " << nuevoJob.id<< "Prioridad: "<<nuevoJob.prioridad <<endl;
     }
+    registrarevento(nuevoJob.id, nuevoJob.prioridad, "CREADO");
+
 }

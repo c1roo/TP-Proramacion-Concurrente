@@ -1,4 +1,5 @@
 #include "message_queue.h"
+#include <log.h>
 
 bool compararJobs(const Job& job1, const Job& job2) {
     return job1.prioridad < job2.prioridad; 
@@ -9,6 +10,8 @@ void addJob(MessageQueue& messageQueue, Job& job) {
     std::lock_guard<std::mutex> lock(messageQueue.mtx);
     
     messageQueue.jobQueue.push(job);
+
+    registrarevento(job.id, job.prioridad, "EN COLA");
 }
 
 

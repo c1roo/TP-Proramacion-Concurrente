@@ -2,7 +2,7 @@
 #define PRODUCTOR_H_INCLUDED
 
 <<<<<<< HEAD
-registrarevento(int jobId, string prioridad, string evento, string timestamp());
+
 
 =======
 void productor (int cantidadJobs);

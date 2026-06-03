@@ -1,20 +1,9 @@
 #ifndef LOG_H_INCLUDED
 #define LOG_H_INCLUDED
-
-#include <fstream>
-#include <iostream>
-#include <mutex>
+#include <string>
 
 using namespace std;
 
-static mutex espera;
-
-void registrarevento(int jobId, string prioridad, string evento, string timestamp()){
-        lock_guard<mutex> lock(espera);
-
-        ofstream archivo("Sistema.log", ios::app);
-
-        archivo << "[" << timestamp << "] - "<< jobId << " - " << prioridad << " - " << evento << endl;
-}
+void registrarevento(int jobId, int prioridad, string& evento)
 
 #endif 
