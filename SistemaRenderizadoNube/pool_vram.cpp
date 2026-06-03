@@ -38,5 +38,9 @@ void liberarDeVRAM(PoolVRAM& pool, Job& job) {
     std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
     registrarevento(job.id, job.prioridad, "FINALIZADO");
+    {
+        lock_guard<mutex> lock(contador);
+        jobFinalizados++;
+    }
 
 }
