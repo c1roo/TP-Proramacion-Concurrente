@@ -1,6 +1,14 @@
 #ifndef GLOBAL_H_INCLUDED
 #define GLOBAL_H_INCLUDED
+#include <mutex>
+#include <iostream>
+using namespace std;
 
+extern int jobsFinalizados;
+extern mutex mtxContador;
+
+void incrementarContador();
+void mostrarContador();
 
 
 #endif // GLOBAL_H_INCLUDED

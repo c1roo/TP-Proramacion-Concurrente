@@ -2,13 +2,14 @@
 #include "log.h"
 #include <thread>
 #include <chrono>
+using namespace std;
 
 void init(PoolVRAM& pool, int n) {
     pool.contador = n;
 }
 
 void wait(PoolVRAM& pool) {
-    std::unique_lock<std::mutex> lock(pool.mtx);
+    unique_lock<mutex> lock(pool.mtx);
     while (pool.contador == 0) {
         pool.cv.wait(lock);
     }
@@ -16,7 +17,7 @@ void wait(PoolVRAM& pool) {
 }
 
 void signal(PoolVRAM& pool) {
-    std::unique_lock<std::mutex> lock(pool.mtx);
+    unique_lock<mutex> lock(pool.mtx);
     pool.contador++;
     pool.cv.notify_one();
 }
@@ -24,19 +25,36 @@ void signal(PoolVRAM& pool) {
 void asignarAVRAM(PoolVRAM& pool, Job& job) {
     wait(pool);
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(450));
+    this_thread::sleep_for(chrono::milliseconds(450));
+    string prio;
+    if(job.prioridad == 1)
+    {
+        prio = "Premium";
+    }
+    else 
+    {
+        prio = "Free";
+    }
 
-// falta del log algo como registrarEvento(job, "ASIGNADO");
+    registrarEvento(job.id, prio, "ASIGNADO_VRAM");
 
 }
 
 void liberarDeVRAM(PoolVRAM& pool, Job& job) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(600));
-
+    this_thread::sleep_for(chrono::milliseconds(600));
     signal(pool);
+    this_thread::sleep_for(chrono::milliseconds(250));
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(250));
+    string prio;
+    if(job.prioridad == 1)
+    {
+        prio = "Premium";
+    }
+    else 
+    {
+        prio = "Free";
+    }
 
-// falta del log algo como registrarEvento(job, "FINALIZADFO");
+    registrarEvento(job.id, prio, "FINALIZADO");
 
 }

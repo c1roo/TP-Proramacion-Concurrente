@@ -6,17 +6,26 @@ bool compararJobs(const Job& job1, const Job& job2) {
 }
 
 void addJob(MessageQueue& messageQueue, Job& job) {
+    {
     this_thread::sleep_for(chrono::milliseconds(100));
     lock_guard<mutex> lock(messageQueue.mtx);
     
     messageQueue.jobQueue.push(job);
+    }
+    messageQueue.cv.notify_one();
 }
 
 
 Job getJob(MessageQueue& messageQueue) {
-    vector<Job> vectorAux;
+    unique_lock<mutex> lock(messageQueue.mtx);
 
-    lock_guard<mutex> lock(messageQueue.mtx);
+    //si la cola esta vacia espera
+    while (messageQueue.jobQueue.empty()) {
+        messageQueue.cv.wait(lock);
+    }
+
+    //antistarvation
+    vector<Job> vectorAux;
     while (!messageQueue.jobQueue.empty()) {
         vectorAux.push_back(messageQueue.jobQueue.top());
         messageQueue.jobQueue.pop();
@@ -25,11 +34,9 @@ Job getJob(MessageQueue& messageQueue) {
     for (Job& j : vectorAux) {
         auto ahora = chrono::high_resolution_clock::now();
         auto tiempoDeEspera = chrono::duration_cast<chrono::milliseconds>(ahora - j.creacion);
-
         if (tiempoDeEspera.count() >= 5000) {
             j.prioridad = 2;
         }
-
         messageQueue.jobQueue.push(j);
     }
 
