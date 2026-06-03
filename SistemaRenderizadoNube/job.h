@@ -9,5 +9,7 @@ struct Job
 
   //-agregar el tiempo en el que se crea como atributo de nombre "creacion"
 
+  -agregar el tiempo en el que se crea como atributo de nombre "creacion"
+*/
 
 #endif // JOB_H_INCLUDED
