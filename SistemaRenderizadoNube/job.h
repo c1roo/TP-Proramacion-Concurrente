@@ -1,9 +1,13 @@
 #ifndef JOB_H_INCLUDED
 #define JOB_H_INCLUDED
 
-struct Job{};
-/*
-  -no encapsular
+struct Job
+{
+    int id;
+    int prioridad;
+};
+
+  //-agregar el tiempo en el que se crea como atributo de nombre "creacion"
 
   -agregar el tiempo en el que se crea como atributo de nombre "creacion"
 */
