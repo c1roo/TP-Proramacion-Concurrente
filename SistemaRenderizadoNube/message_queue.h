@@ -8,12 +8,13 @@
 #include <chrono>
 #include <thread>
 #include "job.h"
+using namespace std;
 
 bool compararJobs(const Job& job1, const Job& job2);
 
 struct MessageQueue{
-    std::mutex mtx; 
-    std::priority_queue<Job, std::vector<Job>, bool(*)(const Job&, const Job&)> jobQueue{compararJobs};
+    mutex mtx; 
+    priority_queue<Job, vector<Job>, bool(*)(const Job&, const Job&)> jobQueue{compararJobs};
 };
 
 void addJob(MessageQueue& messageQueue, Job& job);
