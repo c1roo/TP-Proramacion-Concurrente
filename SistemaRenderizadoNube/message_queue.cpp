@@ -26,7 +26,7 @@ Job getJob(MessageQueue& messageQueue) {
         auto tiempoDeEspera = std::chrono::duration_cast<std::chrono::milliseconds>(ahora - j.creacion);
 
         if (tiempoDeEspera.count() >= 5000) {
-            j.prioridad = 2;
+            j.prioridad = (int)(tiempoDeEspera.count() / 2500);
         }
 
         messageQueue.jobQueue.push(j);
