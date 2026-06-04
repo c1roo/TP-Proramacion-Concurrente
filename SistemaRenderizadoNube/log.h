@@ -5,6 +5,6 @@
 #include <mutex>
 using namespace std;
 
-void registrarevento(int jobId, int prioridad, string& evento)
+void registrarevento(int jobId, int prioridad, string evento);
 
 #endif
