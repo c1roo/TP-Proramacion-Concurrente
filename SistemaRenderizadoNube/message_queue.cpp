@@ -11,6 +11,8 @@ void addJob(MessageQueue& messageQueue, Job& job) {
     
     messageQueue.jobQueue.push(job);
 }
+registrarevento(job.id, job.prioridad, "EN COLA");
+}
 
 
 Job getJob(MessageQueue& messageQueue) {

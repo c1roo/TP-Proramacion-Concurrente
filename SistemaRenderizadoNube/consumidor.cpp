@@ -14,4 +14,5 @@ void consumidor(MessageQueue& cola, PoolVRAM& pool, Semaforo& hay_espacio, Semaf
         liberarDeVRAM(pool, job);
         incrementarContador();
     }
+    
 }

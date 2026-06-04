@@ -5,8 +5,6 @@
 #include <mutex>
 using namespace std;
 
-extern mutex mtxlog;
-
-void registrarEvento(int jobId, string prioridad, string evento);
+void registrarevento(int jobId, int prioridad, string& evento)
 
 #endif

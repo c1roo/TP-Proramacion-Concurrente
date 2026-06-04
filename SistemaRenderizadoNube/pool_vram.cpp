@@ -42,7 +42,7 @@ void asignarAVRAM(PoolVRAM& pool, Job& job) {
     wait(pool, job);
     std::this_thread::sleep_for(std::chrono::milliseconds(450)); 
     std::string prio = (job.prioridad == 1) ? "Premium" : "Free";
-    registrarEvento(job.id, prio, "ASIGNADO_VRAM");
+    registrarevento(job.id, job.prioridad, "ASIGNADO_A_VRAM");
 }
 
 void liberarDeVRAM(PoolVRAM& pool, Job& job) {
@@ -50,5 +50,5 @@ void liberarDeVRAM(PoolVRAM& pool, Job& job) {
     signal(pool, job.id);
     std::this_thread::sleep_for(std::chrono::milliseconds(250)); 
     std::string prio = (job.prioridad == 1) ? "Premium" : "Free";
-    registrarEvento(job.id, prio, "FINALIZADO");
+    registrarevento(job.id, job.prioridad, "FINALIZADO");
 }

@@ -1,9 +1,19 @@
 #include "log.h"
+#include <fstream>
+#include <mutex>
+#include <chrono>
 
-mutex mtxlog;
+using namespace std;
+static mutex espera;
 
-void registrarEvento(int jobId, string prioridad, string evento)
+void registrarevento(int jobId,int prioridad, string& evento)
 {
-    lock_guard<mutex> lock(mtxlog);
-    cout<< "Job: "<<jobId<<"-"<< prioridad << "-" << evento <<endl; 
+    lock_guard<mutex> lock(espera);
+    ofstream archivo("sistema.log", ios::app);
+
+    auto ahora = chrono::system_clock::now();
+    long long timestamp = chrono::duration_cast<chrono::seconds>(ahora.time_since_epoch()).count();
+
+    archivo << "[" << timestamp << "] - " << jobId << " - " << prioridad << " - " << evento << endl;
+    
 }

@@ -29,6 +29,7 @@ int main() {
     c1.join();
     c2.join();
 
+    cout << "Jobs finalizados: " << jobFinalizados << endl;
     mostrarContador();
     return 0;
 }
