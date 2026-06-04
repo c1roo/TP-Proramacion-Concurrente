@@ -1,5 +1,8 @@
 #include "global.h"
 
+int jobFinalizados = 0;
+mutex contador;
+
 void incrementarContador() {
     lock_guard<mutex> lock(contador);
     jobFinalizados++;

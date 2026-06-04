@@ -12,17 +12,9 @@ void productor(MessageQueue& cola, Semaforo& hay_espacio, Semaforo& hay_datos, i
         nuevoJob.prioridad = rand() % 2;
         nuevoJob.creacion = chrono::high_resolution_clock::now();
 
-        string prio;
-        if (nuevoJob.prioridad == 1) {
-            prio = "Premium";
-        } else {
-            prio = "Free";
-        }
-
-        registrarEvento(nuevoJob.id, prio,"CREADO");
         wait(hay_espacio);      
         addJob(cola, nuevoJob);
-        signal(hay_datos);     
-        registrarEvento(nuevoJob.id, prio, "EN_COLA");
+        signal(hay_datos);   
+        registrarevento(nuevoJob.id, nuevoJob.prioridad, "CREADO"); 
     }
 }

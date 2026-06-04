@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <chrono>
 #include "productor.h"
 #include "consumidor.h"
 #include "message_queue.h"
@@ -7,6 +8,8 @@
 #include "semaforo.h"
 #include "global.h"
 using namespace std;
+
+chrono::high_resolution_clock::time_point inicio = chrono::high_resolution_clock::now();
 
 int main() {
     MessageQueue cola;
@@ -29,7 +32,6 @@ int main() {
     c1.join();
     c2.join();
 
-    cout << "Jobs finalizados: " << jobFinalizados << endl;
     mostrarContador();
     return 0;
 }

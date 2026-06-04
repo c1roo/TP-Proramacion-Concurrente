@@ -4,6 +4,9 @@
 #include <iostream>
 using namespace std;
 
+extern int jobFinalizados;
+extern mutex contador;
+
 void incrementarContador();
 void mostrarContador();
 
