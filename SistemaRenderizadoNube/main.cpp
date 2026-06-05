@@ -21,15 +21,22 @@ int main() {
     init(hay_espacio, 10);
     init(hay_datos, 0);    
 
-    int cantJobs = 100;
+    int cantJobs = 0;
+    int cantProductores = 1;
+    int cantConsumidores = 2; 
 
-    thread p1(productor, ref(cola), ref(hay_espacio), ref(hay_datos), cantJobs);
-    //thread p2(productor, ref(cola), ref(hay_espacio), ref(hay_datos), cantJobs);
-    //thread p3(productor, ref(cola), ref(hay_espacio), ref(hay_datos), cantJobs);
+    int jobsPorProductor = cantJobs / cantProductores;       
+    int restoAProducir = cantJobs % cantProductores;
+    int jobsPorConsumidor = cantJobs / cantConsumidores;       
+    int restoAConsumir = cantJobs % cantConsumidores;
 
-    thread c1(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs);
-    thread c2(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs);
-    //thread c3(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs);
+    thread p1(productor, ref(cola), ref(hay_espacio), ref(hay_datos), jobsPorProductor + restoAProducir);
+    //thread p2(productor, ref(cola), ref(hay_espacio), ref(hay_datos), jobsPorProductor);
+    //thread p3(productor, ref(cola), ref(hay_espacio), ref(hay_datos), jobsPorProductor);
+
+    thread c1(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), jobsPorConsumidor + restoAConsumir);
+    thread c2(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), jobsPorConsumidor);
+    //thread c3(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), jobsPorConsumidor);
 
     p1.join();
    // p2.join();
