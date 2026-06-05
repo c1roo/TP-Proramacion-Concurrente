@@ -21,16 +21,22 @@ int main() {
     init(hay_espacio, 10);
     init(hay_datos, 0);    
 
-    int cantJobs = 10;
+    int cantJobs = 1500;
 
     thread p1(productor, ref(cola), ref(hay_espacio), ref(hay_datos), cantJobs);
+    thread p2(productor, ref(cola), ref(hay_espacio), ref(hay_datos), cantJobs);
+    thread p3(productor, ref(cola), ref(hay_espacio), ref(hay_datos), cantJobs);
 
-    thread c1(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs / 2);
-    thread c2(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs / 2);
+    thread c1(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs);
+    thread c2(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs);
+    thread c3(consumidor, ref(cola), ref(pool), ref(hay_espacio), ref(hay_datos), cantJobs);
 
     p1.join();
+    p2.join();
+    p3.join();
     c1.join();
     c2.join();
+    c3.join();
 
     mostrarContador();
     return 0;

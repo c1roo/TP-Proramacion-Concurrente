@@ -6,6 +6,9 @@ using namespace std;
 
 extern int jobFinalizados;
 extern mutex contador;
+extern int proximoID;
+
+int generarID();
 
 void incrementarContador();
 void mostrarContador();
