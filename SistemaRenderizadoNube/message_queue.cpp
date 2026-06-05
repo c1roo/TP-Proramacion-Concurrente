@@ -3,7 +3,16 @@
 using namespace std;
 
 bool compararJobs(const Job& job1, const Job& job2) {
-    return job1.prioridad < job2.prioridad; 
+    bool resultado;
+
+    if(job1.prioridad == job2.prioridad) {
+        resultado = job1.creacion > job2.creacion;
+    }
+    else {
+        resultado = job1.prioridad < job2.prioridad;
+    }
+
+    return resultado;
 }
 
 void addJob(MessageQueue& messageQueue, Job& job) {
